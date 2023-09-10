@@ -1,21 +1,34 @@
 <?php declare(strict_types=1);
 
-namespace Macademy\Blog\Controller\Index;
+namespace Macademy\InventoryFulfillment\Controller\Index;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
-use Magento\Framework\Controller\Result\Forward;
-use Magento\Framework\Controller\Result\ForwardFactory;
+use Magento\Framework\View\Result\Page;
+use Magento\Framework\View\Result\PageFactory;
 
 class Index implements HttpGetActionInterface
 {
-    public function __construct(
-        private ForwardFactory $forwardFactory,
-    ) {}
+    /** @var PageFactory */
+    private $pageFactory;
 
-    public function execute(): Forward
+    /**
+     * Index constructor.
+     * @param PageFactory $pageFactory
+     */
+    public function __construct(
+        PageFactory $pageFactory
+    ) {
+        $this->pageFactory = $pageFactory;
+    }
+
+    /**
+     * @return Page
+     */
+    public function execute(): Page
     {
-        /** @var Forward $forward */
-        $forward = $this->forwardFactory->create();
-        return $forward->setController('post')->forward('list');
+        $page = $this->pageFactory->create();
+        $page->getConfig()->getTitle()->set(__('Shipping Plan'));
+
+        return $page;
     }
 }
