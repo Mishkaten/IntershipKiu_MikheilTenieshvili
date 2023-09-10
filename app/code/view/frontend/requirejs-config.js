@@ -1,14 +1,21 @@
-var config = {
-    config: {
-        mixins: {
-            'Magento_Checkout/js/view/summary/cart-items': {
-                'Macademy_CheckoutMessages/js/view/summary/cart-items-mixin': true
-            }
-        }
-    },
+let config = {
+    deps: [
+        'Macademy_CustomCheckout/js/mask-telephone-inputs'
+    ],
     map: {
         '*': {
-            'Magento_Checkout/template/sidebar': 'Macademy_CheckoutMessages/template/sidebar'
+            'Magento_Checkout/template/sidebar.html':
+                'Macademy_CustomCheckout/template/sidebar.html'
+        }
+    },
+    config: {
+        mixins: {
+            'Magento_Checkout/js/action/set-shipping-information': {
+                'Macademy_CustomCheckout/js/action/set-shipping-information-mixin': true
+            },
+            'Magento_Checkout/js/view/billing-address': {
+                'Macademy_CustomCheckout/js/view/billing-address-mixin': true
+            }
         }
     }
 };
